@@ -7,9 +7,21 @@
         <ul>
         <h3>user list :</h3>
         {% for u in users %}
-            <li>{{ u.get_fullname }}</li>
+            <li>{{ u.first_name}} {{ u.last_name}}</li>
         {% endfor %}
         </ul>
+        <br/>
+
+        <form action="/users/userslist/" method="POST">
+            First name:<br>
+            <input type="text" name="first_name" value="Mickey">
+            <br>
+            Last name:<br>
+            <input type="text" name="last_name" value="Mouse">
+            <br><br>
+            <input type="submit" value="Submit">
+        </form> 
+
 
     </body>
 </html>

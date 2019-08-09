@@ -1,0 +1,184 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .scrollbar
+            {
+              padding: 5px;
+              border-radius: 15px;
+              background: lightblue;
+              float: center;             
+              height: 450px;
+              width: 635;
+              overflow-y: scroll;
+              margin-bottom: 0px;
+              margin-top: 10px;
+            }
+            
+            .force-overflow
+            {
+              max-width: 350px;
+            }
+            
+                       
+                        
+          .avatar {
+            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+
+
+          .msg_cotainer{
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 10px;
+            border-radius: 15px;
+            background-color: #82ccdd;
+            padding: 5px;
+            position: relative;
+          }
+          .msg_cotainer_send{
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-right: 10px;
+            border-radius: 25px;
+            background-color: #78e08f;
+            padding: 7px;
+            position: relative;
+          }
+          .msg_time{
+            position: relative;
+            left:4px;
+            color: #696969;
+            font-size: 11px;
+          }
+          .msg_time_send{
+            position: relative;
+            right:4px;
+            
+            color:#696969;
+            font-size: 11px;
+          }
+        </style>
+        <title>chatroom</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <link href='https://fonts.googleapis.com/css?family=Caveat' rel='stylesheet'>
+    </head>
+    <body>
+   
+          <h1 style="text-align: center;">chatroom free for all</h1>
+                
+            <div style="width:1000px;margin-left:auto;margin-right:auto">
+                        
+                    <div  class="container-fluid rounded">
+                            <div class="row">
+                                   <!-- rooms -->
+                                <div class="col-sm-4">
+                                      <div class="list-group" id="list-tab" role="tablist">
+                                        {% for c in conversations %}
+                                        <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="/chatroom/{{c.id}}" role="tab" aria-controls="home">{{c.name}}</a>
+                                        {% endfor %}
+                                  </div>
+                                </div>
+            
+
+                        
+                                <div  class="container col-sm-8 rounded" style="background-color:lightblue; flex-wrap: wrap;"><br/>
+                                <div class="p-3 mb-2 bg-secondary text-white rounded">
+                                <div class="row justify-content-around">
+                                  <h2 class= "col-md-5">Users in chat:</h2>
+                                  <span   class="col-sm-2 offset-md-4 badge badge-danger align-self-start" style="right: 6px;">you are admin</span>
+                                </div> 
+                                
+                                
+                                <!-- users_list  -->
+                                {% for g in users %}
+                                                          
+                                  {{g}}<b></b>&nbsp;-&nbsp;</b>
+                                                 
+                                {% endfor %}
+                                admin
+                            </div>
+                                
+
+
+                                
+                                    <div class="scrollbar" id="style-default">
+                                    
+                                                                 
+                              
+                                                                
+                            <!-- messages -->        
+                            
+                            
+                            {% for m in messages%}
+
+                                    {% if m.sender_id == admin %}
+                                    <div class="d-flex justify-content-end mb-2">
+                                      <span class="msg_time_send align-self-center">{{m.date}}</span>
+                                      <div class="msg_cotainer_send">
+                                          <p>{{m.text}}</p>
+                                      </div>
+                                      
+                                      <div class="img_cont_msg">
+                                        <img title= "{{ m.sender_id }}" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8oOIDuLpwTcXC9SH8XGlGSauiWCyy-QqcPLv3xCSeVgci1W6BSA" class="rounded-circle avatar">
+                                      </div>
+                                    </div>
+                                    {% else %}
+                                    
+                                      <div class="d-flex justify-content-start mb-2">
+                                        <div class="img_cont_msg">
+                                        {% if m.sender_id == yones %}
+                                          <img title= "{{ m.sender_id }}" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtnv7yUxf1JSU1AzYAzrLOAnNIPgYatf8_mD8NR2KFL3Jq_mmj" class="rounded-circle avatar">
+                                        {% elif m.sender_id == amir %}
+                                          <img title= "{{ m.sender_id }}" src="https://www.shareicon.net/data/2016/09/15/829473_man_512x512.png" class="rounded-circle avatar">
+                                        {% elif m.sender_id == farid %}
+                                          <img title= "{{ m.sender_id }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAABOFBMVEUzcYAmHRf////0s4LioXbz+v/0xKT0zLAAAAA0dIQxcH/4toT8uYYmGxQmGRElFw0SZHUiGhUhaXn8toIAAAYlFAggaHn60bQlEgDg6OorREkNDAwVEQ8cFhL0//8IAAAwXmkxaHWqwMbH1dkfEwqXb1F0maO9i2WJqLAnIx8sS1JINigvWWP+zKvtrn7LlWw4KiBIfouBX0YpNjiatLu1x83W4OOqfVsTAADhm2wpNDWxgl/CjmjZn3RsUDsZCQAxJR2Ji4Ffi5dwWUmnj3pHNSi5lHnbqoKsinNMeIDZrpGQc1+bgG2goqSRlZjw7Ors1chxcHBcRDLGmXnmtpi0uLnX2dmAgoJJSUhhZWVZfIBxg4BJTk3CxMXEmHg+Ozhoa2ogMTTqzbxFLh2Lf29pVEahgGqdkoFtazhKAAAU0UlEQVR4nM2deUMaybrGmwZMrzS0QFgFFI0gQdyNe0w02xiPJsYxicd7zr0z8/2/wa3qvemttlaf/DET0rb1433rXaqX4vjUla8vbM1vLi+drq2tiSIniuC/p0vLm/NbC/V8+r+eS/Pk9a3l0zVJr4I/umSK4zjr/3Tjc27tdHOrnuYg0iKEcNWiAcbFyUAtFteWU8NMg7A+vyRBuFi0KVCAyS3Np0HJnHBhWSzqCYaLMqdeFJcXWA+IKWF+6xRMLRI615ZV/XSLafxhSLh1WqSicymLp1vshsWKcHtJr7LAsyGrS9uMRsaGcGutyA7PYiyusTEkA8L6MhvvDIFcZhBcqQm3wexLAc+UXlyiZqQkBHxpmM+VVDylnJBUhKnzsWCkIKw/Bp/JSOOrxIT5ZQI+0RQB4zJxFUBKOF/FjS8ArDcaNjb29jYkDy0isa7PPyrh9hpmfhDF3nBPq2haQVW1BmwSe6PG3iCTGQw2GqMuwskkXSSbjkSE2A4qdvcqmpqxpDWk0aACYTMZVS1UNlAIjen4SIQLOqaDir29moMHVai5uGqhizwvdZ2g88AnXMI3YKGQiZTWwwg8JGbEJVyQsCuYnt+AflVGeJFVl3DNiEmIPgN7dogU92IA1T3c9CEVN1MkzK+hGlBs1PZGkjH0Xi0aECBqg73GqIdDqa9h5UYcwgXkFCGOamDs2t6wK4lDLY7QiDVaJdMYcciMElbAwSDcRA8xlmeqWqWWGSQAmipUChvIQRXLU9EJTzFCTOzci5KmNXqov6B6ypwQfQoahImuGSYJI+KgT0ZEwm28Kk0UB9hGLGzgxVQdsYhDI1zAyPIirDmHDQI33RjhWFEqosUbJMItjBgjdhuDmqcIxbGiVtvAqHCk4jwrwvkiMh83HFQKJHQ2ZK2BnjU4JEQEwk10wFGGyHheaQMMM6JkjWRCdEBuo0KJB6VW0JsNFMREQnRAaY8kRQRUKNSYIiYRYlhwUNMYIA4ajT0VOfMjICYQYgSZxsaoO6QnzOyBfgqDMDHcxBOiAxp5kKiSmRYoZodYPWMx/vpGLOECBiCchywCDVQFJ54CxNjUH0e4jbNeIfYyMWsVmFI1jGDDSdW4BeMYwjxWLdrL0GZCHyJOyuAkKaYMjyFcwyq28UvteGk40UZaIyHE6Qc5cYOdi5pSBzhTUY9eg4sk3MQCHMUuxmCrUKkU8FbhqpFpMYoQL4wStIOxgI1ed6Om4uWMqIAaQYgXZbheraCxdNOC2hW7GpYRJT0i2kQQ4kUZcThoDFnUM65qAK+BZcSoaBNOiDUJ4dlFkSNZfIpDxEkXhqrL6IR4kxBKZJsOgdQM9gXY8KkYSoh/WxpzQHgNDteIkoRKuIR98YVxLDVVw8n5hkKzYgghgY82mPS+U1L3sC/4h/lpCCH+DU49Vk2FX/hGlHQUwmV8H92rVRAvT2CpgD0Tw/w0QLiN7aNcrzHq9cJmYokWEXsoXDGwEh4gFAnuAhLFXsgiabM0oUTEvUDMheX9acL5Kj4gFwZYKu9kD5oUeAWtUtvAv7moOp9ASHQfpRTMhqXSoSKPm94PMAGHEii/CcYyXZ9OEeKHGQ5GmmDVLazK2axy5mCVVs4wDQoyvkgyZfTlOMI6fpgJz4atdSWbzcqLLfuD9pGy02r7j0mwqkbgo1DFegzhKUmY6YZ0v81xFhIeCo4NrxVlfFT2QLUWJ+3gDzJAlJaiCQkyBRe6QgMsBgmzyoqNVDoBnyivPGZsLWZPEqyIuXBqy58xfIREJgyr2Jr7skEo7ziTrwWtKo+vnQ/At5BrJzkq0Q2s0mkUIZEJpbCKTTCcFMqZiOVDCC3L62XbqhNFeVUO+WEvIQMjegmZmbB0IluAihNrmjvmZ8qOPTdL4C/XMVNxoGEuuDnyGdFDSDYLw9qm9rVi29BJie116zNl30Js5kAoijaiujes4K2auvIa0UO4RGLCUQVWH1ODa607hMqihQic0v7owMSCfmuHorD5qAH/qJAResOpS0iWCzdUEPFGU4itHdtLwcyzA6Y7Ny0rNg9kEIpML3YTp6tKTxzgN1CmPDnRJSQrZyqZSlecJmx6CVdtp9yXXcOWrQ9MNwX2DSnqwIm7pISewsYlJJqFvQoYR+C6oQfG9dO267pZ5ahlHaXAUAMSR4gRtZEoEpY1wIhBQrKmYgSTstiYqkubrzyEIGAao3cDLBSYeYallWtgPOGVkgtWrTBVED/Q4d7a7xDirQHbhEP4JScQZuUVA9HMiLbvli3C9TaAlb1Fui2CFt+V2yfahGSpQhzC7yWJMJs1Khlv/AFkLdNLgXsK4PAQN6UidBOGTUiSKhzOREJlXSiBBkrxfDQ2CUH7UYYTVH4VcNMC8SSEclZsbEKaJ+yChPtThFlldaXcdvOFEYCEA0i4I5iN1nTuH6h0hJzuJ9xiS7gzTZiVlYMjwffxWIDzUt7fV6y/+s+hbpD2h5aqWz5CkpI0grBZAo1RgBAyZnM+sx4Zf5XtQ6cIC8MK1Tx0ilOTME8UZxzCoYew/Gql7U190Tr0/Q3Y0BdNtS4lIVfMewipnJTz1jStRWXcbh2hEPotfFhuT7zBptIbkLVOjvQtDyGVk/oIzYZhBZ/wlXAG6tWSh7BBSWi5qUGYJ6lnPOpW7O7AyAigFMUFBDF1ZSwrq00HsSIN8deD/dJdwgXKp7F7tZZwdgLHZS7QyKtjGEIUS3JI3DGxPIfI8AcVu0zPnPxvddSlGxVnPnjCEbcVHkmd9bFyZLTr5UXFHHp2dWf96HoymVwfLa5mlSAkOORg0TpifWfVIHRKG/BNjf+P0rOspG8Qkhe41ql2FGdtVID5TR4vnpSbzWYHSmiW2+uH0zNTOVxvl5uCcQQ4snyyOIbpMVe2A5Y8+54SUeJsQqLe13umX7MwdRuRsAXShaIcNFvtjrDy7g+oL2dCqyWsZ71mlMfr8MOzL+YRK0Kn3WodKPLYms9GzTD7i/KbN/pgSDhP6aTVc9nsFsD02S+DHuJAKLUm5y9eWnr9/Uur1TrxthaHGfDJH9/tA17PnE9aJWE1O2m3DWc3LgrI55RGNFoojrLqNgihfxllFwili2VQY2c6X16+fGFpZmbm9cw7odR0EOXDZkl498J7xMzrL53SyUq7dW34gmDUO2NaN12yCGmnoWSMHHbrIEAo62CE7XfO6M3xz7z+Wyi17cp7DOz18aX/gJnX70Cn2J7IWegLZeOUMt24zInIMZiGn0zC67axUgF7WuHFixfTAF+aoNSRoUDY7fwx/RXMzHwHddsEJEXQ9ZfOjMAkf2IwETnaks0lBGQgBBr1V8CEEPGs1Hy1CrVfLp29DHwF0IhNMP1gULZKd2pCWLhxDLKhSQivUcA2Hvy39TGM8LyTaZahmpnOecgBMx9bsHWGvXDL9Gd6wmWDkGiFxodoEh6aSy/ABsLnMIAZd50ixIuBPgvQduA8zUUze9LOQ2O1hiNcRvSqauXwlTZs7hVIGAb42llsKk3CAC3CbK7srMrRVjVwUZGjDjSA8INpxAOh+QqN8CzUxpBQgWnnwLo294GesA4IF6hPU/1mXVa6hmOb8lIXYMa9iKPG2XBsd5fyN/qhLQBC3HtJg9LfW9/5ISxFQKRovX8ZAvgZZIOmAP6UMp6vwHOAGWmyYzttyu/ph7YJCGkrGjCf385aM3ERFltjof1XCABIBu3J/lge72TannTiOeAv/2pcdvYf+qEtAULqUMpJP2edgjpr3GMihJqwvWJ0ikp2peQa0T3gOzjA14FQV95GMOUIbpcNyr+Iv++mfA/hSUk4dLzZiaY+G5f966yztOWkcVMtR7fMZsoKpg7iWdsuO12Albaw41wj3QHmMgtvF/Cj0D7zn2bM4EVwxTxXp45XVvvkGdphuST8AZsLZ/ifT9rCoufq2qLQnnz2HvD6C2g+cv7T0DZPBmGdo12jgXJCjT221XK7c3ZuNH5g8K8/vxN8gCai8O6zfcDM+VnTKEp9TvqWwfzRF7gtBl+U9MlPCKw4Edqdzl9/fzw//wh7/ObJqn8ZQ1nNNGGPDw/4+y/Q4pfP/BYEhLRVqUG4xdGnQy4wEeFS1P5KudkUOoIA12kmO4H1Njm7MynbBzTLK/vTi1UMKhoOtvkcbWdhnuefKSPCpbTDnfXrs8lk5WhxNWSpDR6xunh0djI5O1rfOQweMfsPk5FtcstMXhv7KexSjGysg8qx66XGAaFHMHFSTlrm6EsaqOp5wIiUYhJJYVHD0V2ycM80jjIUIeCY0bhOOfqizTzTp/Hs7CwjSnCmDz8ZjWuNFSEnVX+9/XXOAlF+D87E6rXLgJDy+o73ZJL+k8VsnP1E9sbzcIkMCbmQvEhiQiZ50BFTvmD5RmRC+p4pTVWpQ6pMu5SfsuiNyKTe9omxn+qURmTSFHrFONLQG5G5CUVm+dAWXThlHEiZZnznlFQ5cZZRKeMOZ41VXeqKpginvnQfEKhL2fQWvpMSBxtW5bZ3MEts+kP/SX+RGjGFZA/6QyY9vl/V92SIs/+wT/b6Mkd7I0aYyOIp8zgKpc8zWWublsQRTEV5TL/EHVR1i8l6aUDSTwJC1onCkL7AZM075MTY0Wb2VyqbuVTrTK5bhJ0Zs3qbfZtOS1HMs7n2FCI8xLQA4bUnBtcPw1X9hbwwJcu/UmoKjeuH7IsaS/rPLBqinP2Z1oZKxjVgJhcuwk//6QOKp85+SCNNmDKu49PfixEpSfp3MuLseSo7fpky7sWgv58m7je8TXTUlGKMKeN+Gvp7ouJUfZ8AyLxf8qnI5r62OElvc7kYvlyO+cKT77evMbk3Mf53/HyTi2QE//ImlVrNlnVvIu39pfGScobGAbyx+Q+pLv9a95emGmq46mEuhHFs8eUO052GdTb3ecdK/5ZzNTbl+eTfqU4RjtG9+rGqnufixOZKb4Sce/XTaPMd6R9jCd+n6j/zjJ6ZiZX0/ukInWdmiN7RhqonJHSfe0o1Iz4lofvsWiprNZb0hEiT5q92nz+kfYY0UpIuid9iCb+JUmqtRTXP6jngSOlr2xdfYwFzua8X21hbSaHL+xxwSoWbfpqfy9+8iQV8cwOOwXr9O/qv9z7LncqCm740l8/n5/4Vh/jmX8Yx+O/1RZDvefw03LS4yeeh5i5zUYxvcpdzxjE4m72gyv9OBfZuCrebytv6Ho745rtzBD/PfPfkqfdiUL3bJERwi0Jn+Pm5/4YhvvnvnHsIv8DqPi9bU+82YVp9w303tz2jh54agnjpP2SbaLfnSAXeT0P2jqGA4CtHe6PGf674vE9z054KPHTOfwh/+5/hqMexwgy8Y4jBao1obtRcgHsZ795NA/g91eeh5ldwt1vQtEpmb4i3K2mEgu+JInvXlxevN9xQa5r9QuHjhwCiJ22YScIH+HBsPdZW0GoDY+9VqvGEvOuLYlERDKbbgNtQe98v0x/UpykuP5iMbz5cTv9TfdD3/Cyg1AZDKsiQ97URNxgiN9oohGwJ2N9dmJqM+fwLiPjmxfTH/MJuf/rHVa0yaHRJIUPfuUf23kSxC/Gmh2eOUbifRoSeGvDQPH8vhG48oBYqmQaZJUPfm0iQMMwNHUPxTMQLP+LcHH/5nefn/Ij8RTigoUJtb4TPGP7uS+yEIfYaWsKGjsIt77Dx+fr9xdVD8+Hq4r6edzn5WyH2HGpFHeLsTwrlfR008TtoAV+M+RzEK34OzoD7i9s/+0Jnt1/KqP3djtD/8/ZiAQ5jjr+KB4TSNJy9O6PfQYtjRFFq1JA2B9q9u7m92wVsx75YovaPdwVh9+725vcuymk0bYizP2nUe4TRjQg3HEUZWAaG1ON+lCtDzkAQjWIcoG9q7TUh0fu8RWmD7RZdSFJrDUTCmPd5oxlR7A1Yb7KGJm2AFHHi3smOlBPFUSWFbXOQpKoonhr7Xn2Ewob1JnJ4iAjbIsbvjZC835rYTWfXHFTExBd8J+1vkdhi9NLY9wgHcZBAmLhHScI1jLDNOh5XCVt5Je8zE58xQveyeGTFv+IbYa+g2GAjMt4gj0SxL1BG2e8pdjMd6al9FKoQMz6kPbvi9l172kBqqdKNHB/ivmvRe+ex2ZaaVtHbeqDunRe9/+FzmIYxe+qh738Y6afic3BSuPEFuo9i7kOa0i6AuIrY1gNnH9KI9eHAPhZPpPBtdPH2kg2vTwPvXn8iFcJCDe5+wKFT8XkEmohQg7unc/hUfGo0S2HVN/6+3GF7qz+TQAPf9T09NJK91YPR5olbQ48CVU1UlEkgnI42z6OigZoOppIUEWUSCEEj5UN8LqE00F5I1XoMRRzhVEBNZeNmIk0F08gwmkzIz3sRxefipADRS1jcimWIJ/QhPptQ6q/bivPxCAmE3lt5nk0o9QXTYmQiRCR0EZ9PKPUG00TAZEIH8fmEUk9lWgzvJ/AIbcTnUpVCqdZGSckWRCK0w82zSRYZe/dOFEAkQn4Lpv7QLVWfSnDXdSkpimIQgtQvPadkYSwLS/GJHpOQ39alZ9Lgm6p0JT2wuk1FyOfXhs8nlMIVxbWYYpuIkOfvOk+N5VHnDnnc6IT815gbex5XqvAVfdgYhPx9B/XGiXTV79xjjBqHkL98QLr5JWXtPlziDBqLkOdvn9xTVeEWb8iYhPx96/hJAY/bOB5KQghi6hOaURX+B3u8+IT8TeepzHiMFWLICXn+SniKoKoKVySDJSLkfzx0HttV1c6AwIDEhDx/8ciuety5IBwpKSF/efuIrtoXblHLUHaEPF+/eyTGvnAXt+SbHiGYjr8fgbEv/P5BM0gqwkdgpOWjJgSMd0J6MedYuKPkY0AI5uOtgHy3No76u8ItxfxjSAh08cDcWfvCA2l+8IsNIXDWK4Fh99jvCFfU7mmJFSHQzW823gq88+6G3bAYEoIq4OK30DmmqefU447w+warw00SU0Kgy/urNjAlCaUKjNe+umeKx7MnhPpxcVcCtsTx2AKw3eDugtXc8yoNQqj6ze2fAnyUK8Gcah8+6CU83N4wSAyhSovQ0I+br3cPxxB097jfL6g2rKoW+v3jXYh2/HD39SYN0zlKldDU5Y/7m6+3t1e/Hx4GA8A3GAwefl/d3l7c3P9gPelC9P/sjK8RV3MFfgAAAABJRU5ErkJggg==" class="rounded-circle avatar">
+                                        {% elif m.sender_id == saye %}
+                                          <img title= "{{ m.sender_id }}" src="https://www.tm-town.com/assets/default_female600x600-3702af30bd630e7b0fa62af75cd2e67c.png" class="rounded-circle avatar">
+                                        {% elif m.sender_id == parasto %}
+                                          <img title= "{{ m.sender_id }}" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/7b6f5523240799.5632176f43717.png" class="rounded-circle avatar">
+                                        {% elif m.sender_id == homan %}
+                                          <img title= "{{ m.sender_id }}" src="https://pickaface.net/gallery/avatar/Opi51c7dccf270e0.png" class="rounded-circle avatar">
+                                        {% endif %}
+                                      </div>
+                                        <div class="msg_cotainer force-overflow">
+                                          <p>{{m.text}}</p> 
+                                        </div>
+                                        <span class="msg_time align-self-center">{{m.date}}</span>                      
+                                      </div>
+                                    
+                                    {% endif %}  
+                                            <br/>                
+                            {% endfor %}
+                          
+                          </div>
+                            
+                    
+                    <br/> 
+                   
+                    <form action="" method="POST">
+                        <textarea type="text" name="text" class="form-control" rows="3" value="" ></textarea><br/>
+                        <p style="text-align:right">
+                        <input type="submit" class="btn btn-primary" value="send"></p>
+                    </form>
+                        
+                    </div>
+                    </div>   
+                </div>
+              </div>
+            </div>
+         </div>
+        </div>
+     
+    
+    </body>
+</html>
+
+
+
+
+
