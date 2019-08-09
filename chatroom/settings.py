@@ -58,6 +58,7 @@ ROOT_URLCONF = 'chatroom.urls'
 
 TEMPLATES = [
     
+    
 # os.path.join(BASE_DIR, "templates")
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

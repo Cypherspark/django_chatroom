@@ -1,0 +1,39 @@
+<html>
+
+    <head>
+        <title>inboxes</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  
+    </head>
+    <body> 
+      
+        
+
+      <div class="container">
+        <!-- Content here -->
+        <div class="h-100 row  align-items-center justify-content-center">
+            <div class="col-lg-5">
+              <h2 style="text-align: center;">inboxes</h2>
+      <ul class="list-group">
+        {% for u in users_list %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{u}}&nbsp
+         <div><span class="badge badge-primary badge-pill">{{u.recieved_messages}}</span>&nbsp
+          messages</div> 
+        {% endfor %}
+        </li>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </div> 
+
+
+
+
+
+    </body>
+
+</html>     

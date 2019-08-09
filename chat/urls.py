@@ -1,7 +1,9 @@
-from django.urls import re_path
+from django.urls import re_path,path
 
 from . import views
 
 urlpatterns = [
-    re_path('(?P<userparameter>\d{0,10})', views.simple_chat, name='messsages'),
+    path('', views.simple_chat, name='messsages'),
+    re_path('(?P<userparameter>\d{0,10}/$)', views.simple_chat, name='messsages'),
+    path('inboxes', views.inboxes, name="inboxes")
 ]

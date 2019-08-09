@@ -65,7 +65,7 @@
         <title>chatroom</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <link href='https://fonts.googleapis.com/css?family=Caveat' rel='stylesheet'>
+        
     </head>
     <body>
    
@@ -95,12 +95,14 @@
                                 
                                 
                                 <!-- users_list  -->
-                                {% for g in users %}
-                                                          
-                                  {{g}}<b></b>&nbsp;-&nbsp;</b>
-                                                 
+                                {% for g in users %}  
+                                                      
+                                  {{g}}
+                                  
+                                  <b></b>&nbsp;&nbsp;&nbsp;</b>
+                                                
                                 {% endfor %}
-                                admin
+                                
                             </div>
                                 
 
@@ -119,7 +121,7 @@
                                     {% if m.sender_id == admin %}
                                     <div class="d-flex justify-content-end mb-2">
                                       <span class="msg_time_send align-self-center">{{m.date}}</span>
-                                      <div class="msg_cotainer_send">
+                                      <div class="msg_cotainer_send force-overflow">
                                           <p>{{m.text}}</p>
                                       </div>
                                       
